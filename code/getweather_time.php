@@ -22,6 +22,15 @@ if(!empty($location)){
             echo $forecast[0]['low']."/";//min temp expected today
            
 
+$sunr = $astr[0]['sunrise']; //several operation to transform h:min pm into h:min
+$sunr = trim($sunr);
+$sunr = explode(":",$sunr);
+$sunr_h=$sunr[0];
+$sunr_m_a = explode(" ",$sunr[1]);
+$sunr_m = $sunr_m_a[0];
+echo $sunr_h."/";
+echo $sunr_m."/";
+
 $suns = $astr[0]['sunset']; //several operation to transform h:min pm into h:min
 $suns = trim($suns);
 $suns = explode(":",$suns);
