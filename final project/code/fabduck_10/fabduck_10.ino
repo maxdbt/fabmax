@@ -8,8 +8,8 @@
 #define DST_IP "api.thingspeak.com" //my web site, replace with yours
 
 const long accInterval = 500;
-const long updInterval = 80000;
-const long inactivityInterval = 20000;
+const long updInterval = 30000;
+const long inactivityInterval = 120000;
 String cmd;   // AT command string
 
 SoftwareSerial ESP8266(10, 11); // RX, TX
@@ -83,6 +83,7 @@ void setup() {
  // initESP8266(); // Initialise the ESP8266 module
  sensors.begin();
  randomSeed(analogRead(0)); // seed for random generator
+ tempReq();
 }
 
 //=====================================================================
@@ -210,8 +211,8 @@ void getTheWeather() {
   ESP8266.println(cmd);  //send command to device
   waitForResponse(10000);
   
-  cmd =  F("GET /apps/thinghttp/send_request?api_key=9M96JTL06I8NPA25&temp=");  //construct http GET request
-  cmd += waterTemp;
+  cmd =  F("GET /apps/thinghttp/send_request?api_key=9M96JTL06I8NPA25&temp=26");  //construct http GET request
+ // cmd += waterTemp;
   cmd += " HTTP/1.0\r\n\r\n";  //construct http GET request
   //cmd += "Host:  api.thingspeak.com\r\n\r\n";        //test file on my web
   ESP8266.print(F("AT+CIPSEND="));
@@ -433,7 +434,7 @@ if(millis()-lastActivity > inactivityInterval){
  if(bored == false && sending == false){
    //twitta
   // DEBUG.println("I'm getting very bored...");
-   tweet("I'm getting very bored...");
+   //tweet("I'm getting very bored...");
 
   
  }
